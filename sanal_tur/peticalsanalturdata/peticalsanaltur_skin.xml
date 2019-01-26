@@ -1,0 +1,1635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano version="1.17">
+
+    
+  <!-- Spot Style - Default Point Spot Style 1 -->
+  <style name="IconDefaultPointSpotStyle1"
+         url="%FIRSTXML%/spots/hotspot_neutral_sequence_user_defaultpoint0.png"
+         visible="false"
+
+         frame="0"
+         lastframe="17"
+         framewidth="70"
+         frameheight="70"
+         stopspotsequence="false"
+         onloaded="setdefaultanimatedspotframe();startspotanimation(0.1);"
+
+         onhover="onhoverIconDefaultPointSpotStyle1"
+         onout="onoutIconDefaultPointSpotStyle1"
+         />
+  <action name="onhoverIconDefaultPointSpotStyle1">
+    showtooltip(hotspot);
+  </action>
+  <action name="onoutIconDefaultPointSpotStyle1">
+    hideTooltip();
+
+
+
+  </action>
+
+	<!-- ************** -->
+	<!-- Thumbnails Bar -->
+	<!-- ************** -->
+
+
+
+
+<layer name="thumbnailsBar-thumbnailsBar" 
+	keep="true" 
+	type="container" 
+	visible="false"
+	align="left" 
+	
+		width="0" 
+		height="100%" 
+	
+	x="0"
+	y="0"
+	
+	bgcolor="0xdedede"
+	bgalpha="0.100007629510948"
+	
+	zorder="0"
+/>
+
+
+
+<layer name="thumbnailBorderSource-thumbnailsBar"
+	keep="true"
+	visible="false"
+	
+	borderWidth="2"
+	borderColorDefault="0xe6e6e6" 
+	borderColorHover="0xffffff"
+	borderColorSelected="0xffffff"
+	borderAlphaDefault="0.500007629510948" 
+	borderAlphaHover="1"
+	borderAlphaSelected="1"
+	
+	url=""
+	offsetX="0"
+	offsetY="0"
+	quarterHeight="0"
+/>
+
+
+	<krpano arrow1Loaded-thumbnailsBar="false" arrow2Loaded-thumbnailsBar="false" borderLoaded-thumbnailsBar="false" thumbnailsLoadedCounter-thumbnailsBar="0" thumbsCount-thumbnailsBar="0" thumbsCounter-thumbnailsBar="0" firstInit-thumbnailsBar="false" />
+	
+	
+	<events name="thumbnailsScrollEvents-thumbnailsBar" 
+		keep="true" 
+		
+		onxmlcomplete="ifnot(startResize-thumbnailsBar,set(isLoaded-thumbnailsBar, true);if(isStarted-thumbnailsBar,onLoadCompleteHandler-thumbnailsBar();););"
+		onTourStart="set(isStarted-thumbnailsBar, true);if(isLoaded-thumbnailsBar,onLoadCompleteHandler-thumbnailsBar(););"
+		onnewpano="if(startResize-thumbnailsBar,if(firstInit-thumbnailsBar,onLoadCompleteHandler-thumbnailsBar();););"
+		onresize="onResizeHandler-thumbnailsBar();"
+		hidetourthumbnails="hideWithThumbnailsButton-thumbnailsBar();" 
+		showtourthumbnails="showWithThumbnailsButton-thumbnailsBar();" 
+		hidetourcontrols="hideWithControlsBar-thumbnailsBar();" 
+		showtourcontrols="showWithControlsBar-thumbnailsBar();" 
+		onenterfullscreen="delayedcall(0.2,scrollToCurrentThumb-thumbnailsBar(););"
+		onexitfullscreen="delayedcall(0.2,scrollToCurrentThumb-thumbnailsBar(););"
+	/>
+	
+	
+	<layer name="scrollAreaContainer-thumbnailsBar" 
+		keep="true"
+		type="container" 
+		align="topleft"
+		x="10"
+		y="10"
+		
+		marginX="10"
+		marginY="10"
+		
+		width="0" 
+		height="0"
+		
+		scrollSpeedInit="10"
+		scrollSpeed="10"
+		scrollSpeedMax="70"
+		scrollSpeedAcceleration="20"
+		
+		parent="thumbnailsBar-thumbnailsBar"
+		
+		thumbWidth="0"
+		thumbHeight="0"
+		
+		itemWidth="100"
+		itemHeight="50"
+		
+		offsetX="0"
+		offsetY="0"
+		
+		thumbSpacer="10"
+		currentThumbsCount="0"
+		
+		adjustToContent="false"
+		
+		zorder="1"
+		visible="false"
+		ready="false"
+	>
+	
+		
+		<layer name="thumbsScrollArea-thumbnailsBar" 
+			url="%FIRSTXML%/graphics/scrollarea.swf" 
+			alturl="%FIRSTXML%/graphics/scrollarea.js" 
+			align="left"
+			onhover_autoscrolling="false"
+			
+			x="0"
+			y="0"
+			 
+				direction="v" 
+		/>
+	
+	</layer>
+	
+	
+	
+	<layer name="scrollPrevArrow-thumbnailsBar" 
+		keep="true"
+		type="image"
+		visible="false"
+		parent="thumbnailsBar-thumbnailsBar"
+		targetHeight="0"
+		tagertWidth="0"
+		zorder="2"
+		onloaded="loadedImages-thumbnailsBar(arrow1);"
+			url="%FIRSTXML%/graphics/thumbnailsbar/btn_scroll_up.png"
+			align="top"
+	/>
+	
+	
+	
+	<layer name="scrollNextArrow-thumbnailsBar" 
+		keep="true"
+		type="image"
+		visible="false"
+		parent="thumbnailsBar-thumbnailsBar"
+		targetHeight="0"
+		targetWidth="0"
+		zorder="2"
+		onloaded="loadedImages-thumbnailsBar(arrow2);"
+			url="%FIRSTXML%/graphics/thumbnailsbar/btn_scroll_down.png"
+			align="bottom"
+	/>
+	
+	<action name="loadedImages-thumbnailsBar">
+		if(%1 == "arrow1",
+			set(arrow1Loaded-thumbnailsBar, true);
+		);
+		if(%1 == "arrow2",
+			set(arrow2Loaded-thumbnailsBar, true);
+		);
+		if(%1 == "border",
+			if(layer[thumbnailBorderSource-thumbnailsBar].url,
+				set(borderLoaded-thumbnailsBar, true);
+			);
+		);
+		if(%1 == "thumbnail",
+			inc(thumbnailsLoadedCounter-thumbnailsBar);
+		);
+	</action>
+	
+	<action name="onLoadCompleteHandler-thumbnailsBar">
+		
+		set(thumbsCount-thumbnailsBar, 0);
+		
+		
+		set(thumbsCount-thumbnailsBar, get(scene.count));
+		
+		
+		
+		
+		
+		loadThumbs-thumbnailsBar();
+		
+		if(firstInit-thumbnailsBar,
+			onLoadCompleteHandlerPartThree-thumbnailsBar();
+		,
+			onLoadCompleteHandlerPartTwo-thumbnailsBar();
+		);
+	</action>
+	
+	<action name="onLoadCompleteHandlerPartTwo-thumbnailsBar">
+		set(imgCounter-thumbnailsBar, 3);
+		
+		if(arrow1Loaded-thumbnailsBar,
+			dec(imgCounter-thumbnailsBar);
+		);
+		if(arrow2Loaded-thumbnailsBar,
+			dec(imgCounter-thumbnailsBar);
+		);
+		if(thumbsCount-thumbnailsBar == thumbnailsLoadedCounter-thumbnailsBar,
+			dec(imgCounter-thumbnailsBar);
+		);
+		
+		if(imgCounter-thumbnailsBar LE 0,
+			stopdelayedcall(delayedCallOnLoadComplete-thumbnailsBar);
+			onLoadCompleteHandlerPartThree-thumbnailsBar();
+		,
+			delayedcall(delayedCallOnLoadComplete-thumbnailsBar, 0.2, onLoadCompleteHandlerPartTwo-thumbnailsBar());
+		);
+	</action>
+	
+	<action name="onLoadCompleteHandlerPartThree-thumbnailsBar">
+		resetMouseBehavior-thumbnailsBar();
+		highlightCurrentThumb-thumbnailsBar();
+		
+		
+		if(layer[scrollAreaContainer-thumbnailsBar].adjustToContent,
+			mul(adjustWidth-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].marginX), 2);
+			add(adjustWidth-thumbnailsBar, get(layer[thumbsScrollArea-thumbnailsBar].width));
+			mul(adjustHeight-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].marginY), 2);
+			add(adjustHeight-thumbnailsBar, get(layer[thumbsScrollArea-thumbnailsBar].height));
+			
+			
+			if(adjustWidth-thumbnailsBar GT stagewidth,
+				set(adjustWidth-thumbnailsBar, get(stagewidth));
+				set(layer[scrollAreaContainer-thumbnailsBar].adjustToContent, false);
+			,
+				if(adjustHeight-thumbnailsBar GT stageheight,
+					set(adjustHeight-thumbnailsBar, get(stageheight));
+					set(layer[scrollAreaContainer-thumbnailsBar].adjustToContent, false);
+				);
+			);
+			
+			setSize-thumbnailsBar(get(adjustWidth-thumbnailsBar), get(adjustHeight-thumbnailsBar));
+		);
+		
+		setupArrows-thumbnailsBar(true);
+		
+		
+		if (thumbsCounter-thumbnailsBar LE 0,
+			set(layer[thumbnailsBar-thumbnailsBar].visible, false);
+		);
+		
+		
+		set(startResize-thumbnailsBar, true);
+		set(firstInit-thumbnailsBar, true);
+	</action>
+	
+	
+	<action name="onResizeHandler-thumbnailsBar">
+		
+		delayedcall(0.1, onResizeCallback-thumbnailsBar(false); );
+	</action>
+	
+	
+	<action name="onResizeCallback-thumbnailsBar">
+		if(startResize-thumbnailsBar,
+			setSize-thumbnailsBar(get(layer[scrollAreaContainer-thumbnailsBar].targetWidth), get(layer[scrollAreaContainer-thumbnailsBar].targetHeight));
+			setupArrows-thumbnailsBar(%1);
+			
+			
+			if (thumbsCounter-thumbnailsBar LE 0,
+				set(layer[thumbnailsBar-thumbnailsBar].visible, false);
+			);
+		);
+	</action>
+	
+	
+		<action name="showWithThumbnailsButton-thumbnailsBar">
+			set(layer[thumbnailsBar-thumbnailsBar].visible, true);
+			onResizeCallback-thumbnailsBar(true);
+		</action>
+		
+		<action name="hideWithThumbnailsButton-thumbnailsBar">
+			set(layer[thumbnailsBar-thumbnailsBar].visible, false);
+		</action>
+	
+	
+		<action name="showWithControlsBar-thumbnailsBar">
+			
+				if (tour_displaythumbnails,
+					set(layer[thumbnailsBar-thumbnailsBar].visible, true);
+					onResizeCallback-thumbnailsBar(true);
+				,
+					set(layer[thumbnailsBar-thumbnailsBar].visible, false);
+				);
+		</action>
+		
+		<action name="hideWithControlsBar-thumbnailsBar">
+			set(layer[thumbnailsBar-thumbnailsBar].visible, false);
+		</action>
+	
+	
+	<action name="thumbnailBorderDrawInit-thumbnailsBar">
+		
+		set(layer[scrollAreaContainer-thumbnailsBar].offsetX, get(layer[thumbnailBorderSource-thumbnailsBar].borderWidth));
+		set(layer[scrollAreaContainer-thumbnailsBar].offsetY, get(layer[thumbnailBorderSource-thumbnailsBar].borderWidth));
+		
+		
+		mul(totalOffsetX-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].borderWidth), 2);
+		mul(totalOffsetY-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].borderWidth), 2);
+		
+		
+		if(startResize-thumbnailsBar,
+			sub(layer[scrollAreaContainer-thumbnailsBar].itemWidth, get(totalOffsetX-thumbnailsBar));
+			sub(layer[scrollAreaContainer-thumbnailsBar].itemHeight, get(totalOffsetY-thumbnailsBar));
+		);
+		
+		
+		set(layer[scrollAreaContainer-thumbnailsBar].thumbWidth, get(layer[scrollAreaContainer-thumbnailsBar].itemWidth));
+		set(layer[scrollAreaContainer-thumbnailsBar].thumbHeight, get(layer[scrollAreaContainer-thumbnailsBar].itemHeight));
+		
+		add(layer[scrollAreaContainer-thumbnailsBar].itemWidth, get(totalOffsetX-thumbnailsBar));
+		add(layer[scrollAreaContainer-thumbnailsBar].itemHeight, get(totalOffsetY-thumbnailsBar));
+	</action>
+		
+	
+	<action name="thumbnailBorderImageInit-thumbnailsBar">
+		
+		set(layer[scrollAreaContainer-thumbnailsBar].offsetX, get(layer[thumbnailBorderSource-thumbnailsBar].offsetX));
+		set(layer[scrollAreaContainer-thumbnailsBar].offsetY, get(layer[thumbnailBorderSource-thumbnailsBar].offsetY));
+		
+		
+		mul(totalOffsetX-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].offsetX), 2);
+		mul(totalOffsetY-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].offsetY), 2);
+		
+		
+		if(startResize-thumbnailsBar,
+			sub(layer[scrollAreaContainer-thumbnailsBar].itemWidth, get(totalOffsetX-thumbnailsBar));
+			sub(layer[scrollAreaContainer-thumbnailsBar].itemHeight, get(totalOffsetY-thumbnailsBar));
+		);
+		
+		
+		set(layer[scrollAreaContainer-thumbnailsBar].thumbWidth, get(layer[scrollAreaContainer-thumbnailsBar].itemWidth));
+		set(layer[scrollAreaContainer-thumbnailsBar].thumbHeight, get(layer[scrollAreaContainer-thumbnailsBar].itemHeight));
+		
+		add(layer[scrollAreaContainer-thumbnailsBar].itemWidth, get(totalOffsetX-thumbnailsBar));
+		add(layer[scrollAreaContainer-thumbnailsBar].itemHeight, get(totalOffsetY-thumbnailsBar));
+		
+		
+		div(layer[thumbnailBorderSource-thumbnailsBar].quarterHeight, get(layer[thumbnailBorderSource-thumbnailsBar].height), 4);
+		
+		
+		set(cropX-thumbnailsBar, 0);
+		set(cropY-thumbnailsBar, 0);
+		set(cropW-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].width));
+		set(cropH-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].quarterHeight));
+		txtadd(layer[thumbnailBorderSource-thumbnailsBar].cropDefault, get(cropX-thumbnailsBar), '|', get(cropY-thumbnailsBar), '|', get(cropW-thumbnailsBar), '|', get(cropH-thumbnailsBar));
+
+		
+		add(cropY-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].quarterHeight));
+		txtadd(layer[thumbnailBorderSource-thumbnailsBar].cropHover, get(cropX-thumbnailsBar), '|', get(cropY-thumbnailsBar), '|', get(cropW-thumbnailsBar), '|', get(cropH-thumbnailsBar));
+		
+		
+		add(cropY-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].quarterHeight));
+		txtadd(layer[thumbnailBorderSource-thumbnailsBar].cropSelected, get(cropX-thumbnailsBar), '|', get(cropY-thumbnailsBar), '|', get(cropW-thumbnailsBar), '|', get(cropH-thumbnailsBar));
+		
+		
+		add(cropY-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].quarterHeight));
+		txtadd(layer[thumbnailBorderSource-thumbnailsBar].cropVisited, get(cropX-thumbnailsBar), '|', get(cropY-thumbnailsBar), '|', get(cropW-thumbnailsBar), '|', get(cropH-thumbnailsBar));
+		
+		
+		set(scaleX-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].offsetX));
+		set(scaleY-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].offsetY));
+		sub(scaleW-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].width), get(totalOffsetX-thumbnailsBar));
+		sub(scaleH-thumbnailsBar, get(layer[thumbnailBorderSource-thumbnailsBar].quarterHeight), get(totalOffsetY-thumbnailsBar));
+		txtadd(layer[thumbnailBorderSource-thumbnailsBar].scale9grid, get(scaleX-thumbnailsBar), '|', get(scaleY-thumbnailsBar), '|', get(scaleW-thumbnailsBar), '|', get(scaleH-thumbnailsBar));
+	</action>
+	
+	
+	<action name="loadThumbs-thumbnailsBar">
+		
+		
+
+		loadThumbsPartTwo-thumbnailsBar();
+	</action>
+	
+	<action name="loadThumbsPartTwo-thumbnailsBar">
+		if(layer[thumbnailBorderSource-thumbnailsBar].url,
+			set(imgCounter-thumbnailsBar, 1);
+		,
+			set(imgCounter-thumbnailsBar, 0);
+		);
+		
+		if(layer[thumbnailBorderSource-thumbnailsBar].url,
+			if(borderLoaded-thumbnailsBar,
+				dec(imgCounter-thumbnailsBar);
+			);
+		);
+		
+		if(imgCounter-thumbnailsBar LE 0,
+			stopdelayedcall(delayedCallOnLoadCompleteBorder-thumbnailsBar);
+			loadThumbsPartThree-thumbnailsBar();
+		,
+			delayedcall(delayedCallOnLoadCompleteBorder-thumbnailsBar, 0.2, loadThumbsPartTwo-thumbnailsBar());
+		);
+	</action>
+	
+	<action name="loadThumbsPartThree-thumbnailsBar">
+		ifnot(layer[scrollAreaContainer-thumbnailsBar].ready,
+			
+			
+			if(layer[thumbnailBorderSource-thumbnailsBar].url,
+				thumbnailBorderImageInit-thumbnailsBar();
+			,
+				thumbnailBorderDrawInit-thumbnailsBar();
+			);
+			
+			
+			set(thumbsCounter-thumbnailsBar, 0);
+			
+			
+			set(i-thumbnailsBar-wait,25);
+			
+			
+				for( set(i-thumbnailsBar, 0), i-thumbnailsBar LT scene.count, inc(i-thumbnailsBar),
+					if(i-thumbnailsBar-wait == i-thumbnailsBar,
+						add(i-thumbnailsBar-wait,25);
+						wait(0);
+					);
+					createThumb-thumbnailsBar(get(scene[get(i-thumbnailsBar)].name), get(scene[get(i-thumbnailsBar)].thumburl), get(i-thumbnailsBar), get(scene[get(i-thumbnailsBar)].titleid));
+					inc(thumbsCounter-thumbnailsBar);
+				);
+			
+			
+			
+			
+			
+			
+			set(layer[scrollAreaContainer-thumbnailsBar].currentThumbsCount, get(thumbsCounter-thumbnailsBar));
+			
+			
+			setSize-thumbnailsBar(get(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].width), get(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].height));
+			
+			
+			set(layer[scrollAreaContainer-thumbnailsBar].visible, true);
+			
+			
+				if (tour_displaycontrols,
+					showWithControlsBar-thumbnailsBar();
+				,
+					hideWithControlsBar-thumbnailsBar();
+				);
+			
+			
+			set(layer[scrollAreaContainer-thumbnailsBar].ready, true);
+		);
+	</action>
+	
+	
+	<action name="setSize-thumbnailsBar">
+		
+		
+		set(layer[scrollAreaContainer-thumbnailsBar].targetWidth, %1);
+		set(layer[scrollAreaContainer-thumbnailsBar].targetHeight, %2);
+		
+		
+		set(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].width, %1);
+		set(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].height, %2);
+		layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].updatepos();
+		
+		
+		mul(totalMarginX-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].x), 2);
+		mul(totalMarginY-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].y), 2);
+		
+			add(totalPluginWidth-thumbnailsBar, get(totalMarginX-thumbnailsBar), get(layer[scrollAreaContainer-thumbnailsBar].itemWidth));
+			
+			
+			
+			if(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].pixelwidth LT totalPluginWidth-thumbnailsBar,
+				set(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].width, get(totalPluginWidth-thumbnailsBar));
+			);
+		
+		layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].updatepos();
+		
+		
+		sub(containerWidth-thumbnailsBar, get(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].pixelwidth), get(totalMarginX-thumbnailsBar));
+		sub(containerHeight-thumbnailsBar, get(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].pixelheight), get(totalMarginY-thumbnailsBar));
+
+		
+		set(layer[scrollAreaContainer-thumbnailsBar].width, get(containerWidth-thumbnailsBar));
+		set(layer[scrollAreaContainer-thumbnailsBar].height, get(containerHeight-thumbnailsBar));
+		
+		set(scrollAreaSize-thumbnailsBar, 0);
+		
+		
+		mul(totalThumbsSpacer-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].currentThumbsCount), get(layer[scrollAreaContainer-thumbnailsBar].thumbSpacer));
+		sub(totalThumbsSpacer-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].thumbSpacer));
+		
+		set(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].visible, true);
+		
+		
+			mul(scrollAreaSize-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].itemHeight), get(layer[scrollAreaContainer-thumbnailsBar].currentThumbsCount));
+			add(scrollAreaSize-thumbnailsBar, get(totalThumbsSpacer-thumbnailsBar));
+
+			set(layer[thumbsScrollArea-thumbnailsBar].width, get(layer[scrollAreaContainer-thumbnailsBar].itemWidth));
+			set(layer[thumbsScrollArea-thumbnailsBar].height, get(scrollAreaSize-thumbnailsBar));
+			
+			
+			if(layer[scrollAreaContainer-thumbnailsBar].height LT layer[scrollAreaContainer-thumbnailsBar].itemHeight,
+				set(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].visible, false);
+			,
+				verifyThumbnailsBarVisibility-thumbnailsBar();
+			);
+			
+		
+		
+		if(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].width LT 0,
+			set(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].visible, false);
+		);
+		
+	</action>
+	
+	
+	<action name="verifyThumbnailsBarVisibility-thumbnailsBar">
+		if(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].visible,
+			set(boolValue-thumbnailsBar, false);
+			
+			if (tour_displaythumbnails,
+				if (tour_displaycontrols,
+					set(boolValue-thumbnailsBar, true);
+				);
+			);
+			
+			set(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].visible, get(boolValue-thumbnailsBar));
+		);
+	</action>
+	
+	
+	<action name="createThumb-thumbnailsBar">
+
+			add(offsetFactor-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].itemHeight), get(layer[scrollAreaContainer-thumbnailsBar].thumbSpacer));
+	
+			mul(thumbIncPos-thumbnailsBar, %3, get(offsetFactor-thumbnailsBar));
+			
+			
+			if(layer[thumbnailBorderSource-thumbnailsBar].url,
+				add(thumbIncPos-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].offsetY));
+			);
+			
+		
+		mul(negativeOffsetX-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].offsetX), -1);
+		mul(negativeOffsetY-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].offsetY), -1);
+		
+		set(thumbName, 'thumb_');
+		txtadd(thumbName, %1);
+		txtadd(thumbName, '-thumbnailsBar');
+		addlayer(get(thumbName));
+		
+		set(thumbBorderName, 'thumbBorder_');
+		txtadd(thumbBorderName, %1);
+		txtadd(thumbBorderName, '-thumbnailsBar');
+		addlayer(get(thumbBorderName));
+		
+		
+		ifnot(layer[thumbnailBorderSource-thumbnailsBar].url,
+			set(layer[get(thumbBorderName)].type, container);
+			set(layer[get(thumbBorderName)].parent, thumbsScrollArea-thumbnailsBar);
+		);
+		
+		
+		set(layer[get(thumbName)].onloaded, loadedImages-thumbnailsBar("thumbnail"););
+		set(layer[get(thumbName)].url, %2);
+		set(layer[get(thumbName)].keep, true);
+		set(layer[get(thumbName)].width, get(layer[scrollAreaContainer-thumbnailsBar].thumbWidth));
+		set(layer[get(thumbName)].height, get(layer[scrollAreaContainer-thumbnailsBar].thumbHeight));
+		set(layer[get(thumbName)].align, topleft);
+		
+		
+			set(layer[get(thumbName)].x, get(layer[scrollAreaContainer-thumbnailsBar].offsetX));
+		
+			if(layer[thumbnailBorderSource-thumbnailsBar].url,
+				set(layer[get(thumbName)].parent, thumbsScrollArea-thumbnailsBar);
+				set(layer[get(thumbName)].y, get(thumbIncPos-thumbnailsBar));
+			,
+				set(layer[get(thumbName)].parent, get(thumbBorderName));
+				set(layer[get(thumbName)].y, get(layer[scrollAreaContainer-thumbnailsBar].offsetY));
+				set(layer[get(thumbName)].onclick, mainloadscene(%1); resetMouseBehavior-thumbnailsBar(); highlightThumb-thumbnailsBar(%1));
+			);
+			
+		
+		
+		set(layer[get(thumbBorderName)].keep, true);
+		set(layer[get(thumbBorderName)].width, get(layer[scrollAreaContainer-thumbnailsBar].itemWidth));
+		set(layer[get(thumbBorderName)].height, get(layer[scrollAreaContainer-thumbnailsBar].itemHeight));
+		set(layer[get(thumbBorderName)].align, topleft);
+		
+		if(layer[thumbnailBorderSource-thumbnailsBar].url,
+			set(layer[get(thumbBorderName)].url, get(layer[thumbnailBorderSource-thumbnailsBar].url));
+			set(layer[get(thumbBorderName)].scale9grid, get(layer[thumbnailBorderSource-thumbnailsBar].scale9grid));
+			set(layer[get(thumbBorderName)].parent, get(thumbName));
+			set(layer[get(thumbBorderName)].x, get(negativeOffsetX-thumbnailsBar));
+			set(layer[get(thumbBorderName)].y, get(negativeOffsetY-thumbnailsBar));
+			set(layer[get(thumbBorderName)].onclick, mainloadscene(%1); resetMouseBehavior-thumbnailsBar(); highlightThumb-thumbnailsBar(%1));
+		,
+			
+				set(layer[get(thumbBorderName)].y, get(thumbIncPos-thumbnailsBar)); 
+				
+		);
+		
+		
+		setupMouseBehavior-thumbnailsBar(%1, %4);
+		
+	</action>
+	
+	
+	<action name="removeThumb-thumbnailsBar">
+		set(thumbName, 'thumb_');
+		txtadd(thumbName, %1);
+		txtadd(thumbName, '-thumbnailsBar');
+		removelayer(get(thumbName));
+		
+		set(thumbBorderName, 'thumbBorder_');
+		txtadd(thumbBorderName, %1);
+		txtadd(thumbBorderName, '-thumbnailsBar');
+		removelayer(get(thumbBorderName));
+	</action>
+	
+	
+	
+	<action name="setupArrows-thumbnailsBar">
+		
+		if(layer[scrollAreaContainer-thumbnailsBar].adjustToContent,
+			hideArrows-thumbnailsBar();
+		,
+			ifnot(device.touchdevice,
+				
+					if(layer[scrollAreaContainer-thumbnailsBar].height LT layer[thumbsScrollArea-thumbnailsBar].height,
+				
+					showArrows-thumbnailsBar();
+				,
+					hideArrows-thumbnailsBar();
+				);
+			,
+				hideArrows-thumbnailsBar();
+			);
+		);
+		
+		
+		if(%1,
+			scrollToCurrentThumb-thumbnailsBar();
+		);
+		
+		
+			
+			if(layer[scrollAreaContainer-thumbnailsBar].height LT layer[scrollAreaContainer-thumbnailsBar].itemHeight,
+				set(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].visible, false);
+			);
+	</action>
+	
+	
+	<action name="showArrows-thumbnailsBar">
+		
+		
+		
+		
+		set(layer[scrollPrevArrow-thumbnailsBar].visible, true);
+		set(layer[scrollNextArrow-thumbnailsBar].visible, true);
+		
+		
+		
+			
+			add(totalArrowSize-thumbnailsBar, get(layer[scrollPrevArrow-thumbnailsBar].height), get(layer[scrollNextArrow-thumbnailsBar].height));
+		
+			
+			sub(scrollAreaContainerSize-thumbnailsBar, get(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].pixelheight), get(totalArrowSize-thumbnailsBar));
+		
+			set(layer[scrollAreaContainer-thumbnailsBar].height, get(scrollAreaContainerSize-thumbnailsBar));
+		
+			set(layer[scrollAreaContainer-thumbnailsBar].y, get(layer[scrollPrevArrow-thumbnailsBar].height));
+			
+		
+		
+		set(layer[scrollPrevArrow-thumbnailsBar].onhover, scrollPrev-thumbnailsBar(););
+		set(layer[scrollNextArrow-thumbnailsBar].onhover, scrollNext-thumbnailsBar(););
+		
+		set(layer[scrollPrevArrow-thumbnailsBar].onclick, scrollPrev-thumbnailsBar(get(layer[scrollAreaContainer-thumbnailsBar].scrollSpeedAcceleration)););
+		set(layer[scrollNextArrow-thumbnailsBar].onclick, scrollNext-thumbnailsBar(get(layer[scrollAreaContainer-thumbnailsBar].scrollSpeedAcceleration)););
+		
+		
+		
+		
+		
+		set(layer[scrollPrevArrow-thumbnailsBar].onout, set(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed, get(layer[scrollAreaContainer-thumbnailsBar].scrollSpeedInit)););
+		set(layer[scrollNextArrow-thumbnailsBar].onout, set(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed, get(layer[scrollAreaContainer-thumbnailsBar].scrollSpeedInit)););
+		
+	</action>
+	
+	
+	
+	
+	<action name="hideArrows-thumbnailsBar">
+		
+		set(layer[scrollPrevArrow-thumbnailsBar].visible, false);
+		set(layer[scrollNextArrow-thumbnailsBar].visible, false);
+		
+		
+		
+			mul(totalMargin-thumbnailsBar, get(layer[scrollAreaContainer-thumbnailsBar].marginY), 2);
+			
+			sub(scrollAreaContainerSize-thumbnailsBar, get(layer[get(layer[scrollAreaContainer-thumbnailsBar].parent)].pixelheight), get(totalMargin-thumbnailsBar));
+			
+			set(layer[scrollAreaContainer-thumbnailsBar].height, get(scrollAreaContainerSize-thumbnailsBar));
+			set(layer[scrollAreaContainer-thumbnailsBar].y, get(layer[scrollAreaContainer-thumbnailsBar].marginY));
+			 
+			
+	</action>
+	
+	
+	<action name="scrollPrev-thumbnailsBar">
+		
+		
+		if(%1,
+			inc(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed, %1);
+		);
+		
+		layer[thumbsScrollArea-thumbnailsBar].stopscrolling();
+		
+		set(scrollLimit-thumbnailsBar, 0);
+		
+		
+			
+				sub(scrollLimit-thumbnailsBar, get(layer[thumbsScrollArea-thumbnailsBar].height), get(layer[scrollAreaContainer-thumbnailsBar].height));
+				div(scrollLimit-thumbnailsBar, 2);
+			
+			add(layer[thumbsScrollArea-thumbnailsBar].y, get(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed));
+			if(layer[thumbsScrollArea-thumbnailsBar].y GE scrollLimit-thumbnailsBar,
+				set(layer[thumbsScrollArea-thumbnailsBar].y, get(scrollLimit-thumbnailsBar));
+			);
+			
+		
+		if(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed LT layer[scrollAreaContainer-thumbnailsBar].scrollSpeedMax,
+			inc(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed);
+		);
+		
+	</action>
+	
+	
+	<action name="scrollNext-thumbnailsBar">
+		
+		
+		if(%1,
+			inc(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed, %1);
+		);
+		
+		layer[thumbsScrollArea-thumbnailsBar].stopscrolling();
+		
+			
+			sub(scrollLimit-thumbnailsBar, get(layer[thumbsScrollArea-thumbnailsBar].height), get(layer[scrollAreaContainer-thumbnailsBar].height));
+			
+				div(scrollLimit-thumbnailsBar, 2);
+			mul(scrollLimit-thumbnailsBar, -1);
+			
+			sub(layer[thumbsScrollArea-thumbnailsBar].y, get(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed));
+			if(layer[thumbsScrollArea-thumbnailsBar].y LE scrollLimit-thumbnailsBar,
+				set(layer[thumbsScrollArea-thumbnailsBar].y, get(scrollLimit-thumbnailsBar));
+			);
+		
+		if(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed LT layer[scrollAreaContainer-thumbnailsBar].scrollSpeedMax,
+			inc(layer[scrollAreaContainer-thumbnailsBar].scrollSpeed);
+		);
+		
+	</action>
+	
+	
+	<action name="resetMouseBehavior-thumbnailsBar">
+	
+		
+		
+		
+		set(j-thumbnailsBar-wait,25);
+		
+			for( set(j-thumbnailsBar, 0), j-thumbnailsBar LT scene.count, inc(j-thumbnailsBar),
+				if(j-thumbnailsBar-wait == j-thumbnailsBar,
+					add(j-thumbnailsBar-wait,25);
+					wait(0);
+				);
+				set(thumbBorderName, 'thumbBorder_');
+				txtadd(thumbBorderName, get(scene[get(j-thumbnailsBar)].name));
+				txtadd(thumbBorderName, '-thumbnailsBar');
+				
+				setupMouseBehavior-thumbnailsBar(get(scene[get(j-thumbnailsBar)].name), get(scene[get(j-thumbnailsBar)].titleid));
+			);
+		
+	</action>
+	
+	
+	<action name="setupMouseBehavior-thumbnailsBar">
+
+		set(thumbName, 'thumb_');
+		txtadd(thumbName, %1);
+		txtadd(thumbName, '-thumbnailsBar');
+		
+		set(thumbBorderName, 'thumbBorder_');
+		txtadd(thumbBorderName, %1);
+		txtadd(thumbBorderName, '-thumbnailsBar');
+		
+		if(layer[thumbnailBorderSource-thumbnailsBar].url,
+			set(layer[get(thumbBorderName)].crop, get(layer[thumbnailBorderSource-thumbnailsBar].cropDefault));
+			set(layer[get(thumbBorderName)].onovercrop, get(layer[thumbnailBorderSource-thumbnailsBar].cropHover));
+			set(layer[get(thumbBorderName)].ondowncrop, get(layer[thumbnailBorderSource-thumbnailsBar].cropHover));
+			set(layer[get(thumbBorderName)].tooltip, %2);
+				set(layer[get(thumbBorderName)].onhover, showToolTip(get(align), ));
+				set(layer[get(thumbBorderName)].onout, hideTooltip());
+		,
+			set(layer[get(thumbBorderName)].bgcolor, get(layer[thumbnailBorderSource-thumbnailsBar].borderColorDefault));
+			set(layer[get(thumbBorderName)].bgalpha, get(layer[thumbnailBorderSource-thumbnailsBar].borderAlphaDefault));
+				set(layer[get(thumbName)].tooltip, %2);
+				set(layer[get(thumbName)].onhover, showToolTip(get(align), ));
+			
+			set(layer[get(thumbName)].onover, 
+				set(layer[get(parent)].bgcolor, get(layer[thumbnailBorderSource-thumbnailsBar].borderColorHover));
+				set(layer[get(parent)].bgalpha, get(layer[thumbnailBorderSource-thumbnailsBar].borderAlphaHover));
+			);
+			
+			set(layer[get(thumbName)].onout, 
+				set(layer[get(parent)].bgcolor, get(layer[thumbnailBorderSource-thumbnailsBar].borderColorDefault));
+				set(layer[get(parent)].bgalpha, get(layer[thumbnailBorderSource-thumbnailsBar].borderAlphaDefault));
+				hideTooltip();
+			);
+		);
+	
+	</action>
+	
+	
+	<action name="highlightCurrentThumb-thumbnailsBar">
+			highlightThumb-thumbnailsBar(get(xml.scene));
+	</action>
+	
+	
+	<action name="highlightThumb-thumbnailsBar">
+	
+		set(thumbBorderName, 'thumbBorder_');
+		txtadd(thumbBorderName, %1);
+		txtadd(thumbBorderName, '-thumbnailsBar');
+		
+		if(layer[thumbnailBorderSource-thumbnailsBar].url,
+			set(layer[get(thumbBorderName)].crop, get(layer[thumbnailBorderSource-thumbnailsBar].cropSelected));
+			set(layer[get(thumbBorderName)].onovercrop, get(layer[thumbnailBorderSource-thumbnailsBar].cropSelected));
+			set(layer[get(thumbBorderName)].ondowncrop, get(layer[thumbnailBorderSource-thumbnailsBar].cropSelected));
+		,
+			set(thumbName, 'thumb_');
+			txtadd(thumbName, %1);
+			txtadd(thumbName, '-thumbnailsBar');
+			
+			set(layer[get(thumbBorderName)].bgcolor, get(layer[thumbnailBorderSource-thumbnailsBar].borderColorSelected));
+			set(layer[get(thumbBorderName)].bgalpha, get(layer[thumbnailBorderSource-thumbnailsBar].borderAlphaSelected));
+			
+			set(layer[get(thumbName)].onover, "");
+			set(layer[get(thumbName)].onout, hideTooltip(););
+		);
+
+		scrollToThumb-thumbnailsBar(%1);
+	</action>
+	
+	
+	<action name="scrollToCurrentThumb-thumbnailsBar">
+			scrollToThumb-thumbnailsBar(get(xml.scene));
+	</action>
+	
+	
+	<action name="scrollToThumb-thumbnailsBar">
+		
+		set(thumbName, 'thumb_');
+		set(thumbBorderName, 'thumbBorder_');
+		
+		txtadd(thumbName, %1);
+		txtadd(thumbName, '-thumbnailsBar');
+		txtadd(thumbBorderName, %1);
+		txtadd(thumbBorderName, '-thumbnailsBar');
+
+			set(posY-thumbnailsBar, 0);
+			if(layer[thumbnailBorderSource-thumbnailsBar].url,
+				div(halfThumbHeight-thumbnailsBar, get(layer[get(thumbName)].height), 2);
+				ifnot(layer[scrollAreaContainer-thumbnailsBar].adjustToContent,
+					add(posY-thumbnailsBar, get(layer[get(thumbName)].y), get(halfThumbHeight-thumbnailsBar));
+				);
+				if(layer[thumbsScrollArea-thumbnailsBar].scrolltocenter,
+					layer[thumbsScrollArea-thumbnailsBar].scrolltocenter(0, get(posY-thumbnailsBar));
+				);
+			,
+				div(halfThumbHeight-thumbnailsBar, get(layer[get(thumbBorderName)].height), 2);
+				ifnot(layer[scrollAreaContainer-thumbnailsBar].adjustToContent,
+					add(posY-thumbnailsBar, get(layer[get(thumbBorderName)].y), get(halfThumbHeight-thumbnailsBar));
+				);
+				if(layer[thumbsScrollArea-thumbnailsBar].scrolltocenter,
+					layer[thumbsScrollArea-thumbnailsBar].scrolltocenter(0, get(posY-thumbnailsBar));
+				);
+			);
+		
+		
+	</action>
+
+
+
+
+  <!-- ****** -->
+  <!-- Footer -->
+  <!-- ****** -->
+  <layer name="footer"
+         keep="true"
+         url="%FIRSTXML%/graphics/footer/footer.png" 
+         bgalpha="0.0899977111467155"
+         align="bottom"
+         x="0"
+         y="0"
+         zorder="1"
+         enabled="false"
+         capture="true"
+         visible="false"
+
+         width="50%"
+
+         />
+
+  <events name="footerevents" 
+    onTourStart="showfooter();"
+    hidetourcontrols="hidefooter();"
+    showtourcontrols="showfooter();"
+    keep="true" />
+
+  <action name="hidefooter">
+    set(layer[footer].visible, false);
+  </action>
+  <action name="showfooter">
+    set(layer[footer].visible, true);
+  </action>
+
+  <!-- ************ -->
+  <!-- Logo : viewport / bottomright -->
+  <!-- ************ -->
+
+
+  <layer align="bottomright"
+         x="10"
+         y="10"
+         zorder="2"
+         name="logo"
+         keep="true"
+         visible="false"
+         capture="false"
+		
+			tooltip="logotooltipText"
+			onhover="showTooltip(bottomright);"
+			onout="hideTooltip();"
+         url="%FIRSTXML%/graphics/logo/petical_copy.png" 
+         handcursor="false"
+
+
+         />
+
+  <events name="logoevents" 
+    onTourStart="showlogo();"
+    keep="true" />
+
+  <action name="hidelogo">
+    set(layer[logo].visible, false);
+  </action>
+  <action name="showlogo">
+      set(layer[logo].visible, true);
+  </action>
+
+
+
+
+
+  <!-- ****** -->
+  <!-- Header -->
+  <!-- ****** -->
+  <layer name="header"
+         keep="true"
+         url="%FIRSTXML%/graphics/header/header.png" 
+         bgalpha="0.100007629510948"
+         align="top"
+         x="0"
+         y="0"
+         zorder="3"
+         enabled="false"
+         capture="true"
+         visible="false"
+
+         width="50%"
+
+         />
+
+  <events name="headerevents"
+    onTourStart="showheader();"
+    hidetourcontrols="hideheader();"
+    showtourcontrols="showheader();"
+    keep="true" />
+
+  <action name="hideheader">
+    set(layer[header].visible, false);
+  </action>
+  <action name="showheader">
+    set(layer[header].visible, true);
+  </action>
+
+  <!-- ******************* -->
+  <!-- Classic Control Bar -->
+  <!-- ******************* -->
+
+  <krpano theme2barbuilt="false" theme2backgroundwidthwhenclosed="0" theme2backgroundwidthwhenopened="0" theme2IsOpened="false" />
+  <events name="theme2events" onxmlcomplete="theme2buildMenuBar();" keep="true"/>
+  <action name="theme2buildMenuBar">
+    ifnot (theme2barbuilt, theme2buildMenu(); set(theme2barbuilt, true););
+  </action>
+
+  <action name="theme2buildMenu">
+    
+    set(theme2button_pos, 20);
+
+
+
+    if (device.fullscreensupport,
+      set(layer[theme2btn_openfs ].x, get(theme2button_pos));
+      set(layer[theme2btn_closefs].x, get(theme2button_pos));
+      inc(theme2button_pos, 36);
+    );
+
+
+
+    set(layer[theme2btn_autorotate_on ].x, get(theme2button_pos));
+    set(layer[theme2btn_autorotate_off].x, get(theme2button_pos));
+    inc(theme2button_pos, 36);
+
+
+    set(layer[theme2btn_sound_on ].x, get(theme2button_pos));
+    set(layer[theme2btn_sound_off].x, get(theme2button_pos));
+    inc(theme2button_pos, 36);
+
+
+
+
+    if (device.desktop,
+        set(layer[theme2btn_right].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+        set(layer[theme2btn_left].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+    );
+    if (device.desktop,
+        set(layer[theme2btn_down].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+        set(layer[theme2btn_up].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+    );
+    if (device.desktop,
+        set(layer[theme2btn_out].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+        set(layer[theme2btn_in].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+    );
+    if (scene.count GT 1,
+        set(layer[theme2btn_next_pano].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+        set(layer[theme2btn_prev_pano].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+      );
+
+    inc(theme2button_pos, 20);
+
+    set(theme2backgroundwidthwhenopened, get(theme2button_pos));
+    
+    
+    add(theme2VerifyVisibility, 20, 20);
+    if(theme2backgroundwidthwhenopened == 20,
+      set(theme2backgroundwidthwhenopened, 0);
+    );
+
+	
+	
+  </action>
+
+	<events name="theme2StartTourEvents" onTourStart="theme2CallOnStartTour();" keep="true" />
+
+	<action name="theme2CallOnStartTour">
+		
+		set(layer[theme2menu_controlbar_bg_img].width, get(theme2button_pos));
+		set(layer[theme2menu_controlbar_bg].width, get(theme2button_pos));
+		theme2showMenuControls();
+	</action>
+
+  <style name="theme2_btn_style"
+         keep="true"
+         alpha="0.8"
+         edge="right" align="right"
+         width="36" height="36"
+         zorder="6"
+         onover="theme2ctrlbaronoveraction();"
+         onout="theme2ctrlbaronoutaction();"
+	onhover="showTooltip(bottom, theme2menuTooltipStyle, bottom);"
+         />
+  <action name="theme2ctrlbaronoveraction">
+    tween(alpha,1,0.1,easeoutquad);
+    tween(y,-2,0.1,easeoutquad);
+  </action>  
+  <action name="theme2ctrlbaronoutaction">
+    tween(alpha,0.8);
+    tween(y,0,0.1,easeoutquad);
+    hideTooltip();
+  </action>
+
+  <layer name="theme2menu_controlbar_bg_img"
+         keep="true"
+         align="bottom"
+         x="0" y="10"
+         url="%FIRSTXML%/graphics/classiccontrolbar/footer.png"
+         zorder="4"
+         width="40"
+         height="40"
+         scale9grid="10|10|80|80"
+         visible="false"
+         />
+  <layer name="theme2menu_controlbar_bg"
+         keep="true"
+         align="bottom"
+         x="0" y="10"
+         type="container"
+         zorder="5"
+         width="40"
+         height="40"
+         visible="false"
+         alpha="1.0"
+         >
+
+
+
+    <layer name="theme2btn_in"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_zoom_in.png"
+            ondown="set(fov_moveforce, -1);"
+            onup="set(fov_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classiczoomInTip"
+            devices="desktop"
+            visible="false"
+            />
+    <layer name="theme2btn_out"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_zoom_out.png"
+            ondown="set(fov_moveforce, +1);"
+            onup="set(fov_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classiczoomOutTip"
+            devices="desktop"
+            visible="false"
+            />
+
+    <layer name="theme2btn_left"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_move_left.png"
+            ondown="set(hlookat_moveforce, -1);"
+            onup="set(hlookat_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicmoveLeftTip"
+            devices="desktop"
+            visible="false"
+            />
+    <layer name="theme2btn_right"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_move_right.png"
+            ondown="set(hlookat_moveforce, +1);"
+            onup="set(hlookat_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicmoveRightTip"
+            devices="desktop"
+            visible="false"
+            />
+
+    <layer name="theme2btn_up"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_move_up.png"
+            ondown="set(vlookat_moveforce, -1);"
+            onup="set(vlookat_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicmoveUpTip"
+            devices="desktop"
+            visible="false"
+            />
+    <layer name="theme2btn_down"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_move_down.png"
+            ondown="set(vlookat_moveforce, +1);"
+            onup="set(vlookat_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicmoveDownTip"
+            devices="desktop"
+            visible="false"
+            />
+
+
+    <layer name="theme2btn_sound_on"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_start_sound.png"
+            onclick="playTourSounds();"
+            style="theme2_btn_style"
+            visible="false"
+            tooltip="controlBar_classicsoundsOnTip"
+            />
+    <layer name="theme2btn_sound_off"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_stop_sound.png"
+            onclick="stopTourSounds();"
+            style="theme2_btn_style"
+            visible="false"
+            tooltip="controlBar_classicsoundsOffTip"
+            />
+
+
+    <layer name="theme2btn_prev_pano"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_previous_scene.png"
+            onclick="loadPreviousScene();"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicprevSceneTip"
+            visible="false"
+            />
+    <layer name="theme2btn_next_pano"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_next_scene.png"
+            onclick="loadNextScene();"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicnextSceneTip"
+            visible="false"
+            />
+
+
+
+    <layer name="theme2btn_openfs"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_enter_fs.png"
+            onclick="enterFullscreen();"
+            style="theme2_btn_style"
+            devices="fullscreensupport"
+            visible="false"
+            tooltip="controlBar_classicopenFsTip"
+            />
+    <layer name="theme2btn_closefs"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_close_fs.png"
+            onclick="exitFullscreen();"
+            style="theme2_btn_style"
+            visible="false"
+            devices="fullscreensupport"
+            tooltip="controlBar_classiccloseFsTip"
+            />
+
+    <layer name="theme2btn_autorotate_on"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_start_autorotation.png"
+            onclick="startautorotation();"
+            style="theme2_btn_style"
+            visible="false"
+            tooltip="controlBar_classicautorotateOnTip"
+            />
+    <layer name="theme2btn_autorotate_off"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_stop_autorotation.png"
+            onclick="stopautorotation();"
+            style="theme2_btn_style"
+            visible="false"
+            tooltip="controlBar_classicautorotateOffTip"
+            />
+
+
+
+
+
+  </layer>
+
+
+
+
+  <action name="theme2hideMenuControls">
+    set(theme2IsOpened, false);
+    theme2updateFullscreenButtons();
+
+    theme2updateSoundButtons();
+
+    if (scene.count GT 1,
+    set(layer[theme2btn_prev_pano].visible, false);
+    set(layer[theme2btn_next_pano].visible, false);
+    );
+    theme2updateAutorotationButtons();
+
+
+    set(layer[theme2btn_up].visible  , false);
+    set(layer[theme2btn_down].visible, false);
+    set(layer[theme2btn_right].visible, false);
+    set(layer[theme2btn_left].visible , false);
+    set(layer[theme2btn_in].visible , false);
+    set(layer[theme2btn_out].visible, false);
+
+
+
+
+
+
+    set(layer[theme2menu_controlbar_bg_img].visible, true);
+    set(layer[theme2menu_controlbar_bg].visible, true);
+    tween(layer[theme2menu_controlbar_bg_img].width , get(theme2backgroundwidthwhenclosed));
+    tween(layer[theme2menu_controlbar_bg].width , get(theme2backgroundwidthwhenclosed));
+    tween(layer[theme2menu_controlbar_bg_img].alpha, 0.8);
+  </action>
+  <action name="theme2showMenuControls">
+    set(theme2IsOpened, true);
+    if(theme2backgroundwidthwhenopened == 0,
+      set(layer[theme2menu_controlbar_bg_img].visible, false);
+      set(layer[theme2menu_controlbar_bg].visible, false);
+    ,
+      set(layer[theme2menu_controlbar_bg_img].visible, true);
+      set(layer[theme2menu_controlbar_bg].visible, true);
+    );
+    tween(layer[theme2menu_controlbar_bg_img].alpha, 0.8);
+    tween(layer[theme2menu_controlbar_bg_img].width, get(theme2backgroundwidthwhenopened), 0.5, easeOutQuad, theme2showMenuButtons(););
+    tween(layer[theme2menu_controlbar_bg].width, get(theme2backgroundwidthwhenopened), 0.5, easeOutQuad, theme2showMenuButtons(););
+  </action>
+  <action name="theme2showMenuButtons">
+    if (device.desktop,
+    set(layer[theme2btn_up].visible  , true);
+    set(layer[theme2btn_down].visible, true);
+    );
+    if (device.desktop,
+    set(layer[theme2btn_right].visible, true);
+    set(layer[theme2btn_left].visible , true);
+    );
+    if (device.desktop,
+    set(layer[theme2btn_in].visible , true);
+    set(layer[theme2btn_out].visible, true);
+    );
+
+
+
+
+
+
+    theme2updateFullscreenButtons();
+
+    theme2updateSoundButtons();
+
+    if (scene.count GT 1,
+      set(layer[theme2btn_prev_pano].visible, true);
+      set(layer[theme2btn_next_pano].visible, true);
+    );
+    theme2updateAutorotationButtons();
+
+
+  </action>
+
+
+
+	<events name="theme2menufullscreenchangeevent"
+		onenterfullscreen="theme2updateFullscreenButtons();"
+		onexitfullscreen="theme2updateFullscreenButtons();"
+		keep="true"/>
+	<action name="theme2HideFullscreenButtons">
+		set(layer[theme2btn_openfs].visible , false);
+		set(layer[theme2btn_closefs].visible, false);
+	</action>
+	<action name="theme2ShowFullscreenButtons">
+		if (device.fullscreensupport,
+			if(tour_fullscreen,
+				set(layer[theme2btn_openfs].visible , false);
+				set(layer[theme2btn_closefs].visible, true);
+			,
+				set(layer[theme2btn_openfs].visible ,true);
+				set(layer[theme2btn_closefs].visible,false);
+			);
+		,
+			theme2HideFullscreenButtons();
+		);
+	</action>
+	<action name="theme2updateFullscreenButtons">
+		set(theme2DisplayFullscreenButtons, false);
+		if (theme2IsOpened, set(theme2DisplayFullscreenButtons, true););
+		if (theme2DisplayFullscreenButtons,
+			theme2ShowFullscreenButtons();
+		,
+			theme2HideFullscreenButtons();
+		);
+	</action>
+
+	<events name="theme2AutorotationEvents"
+		onstartautorotation="theme2updateAutorotationButtons();"
+		onresumeautorotation="theme2updateAutorotationButtons();"
+		onstopautorotation="theme2updateAutorotationButtons();"
+		onpauseautorotation="theme2updateAutorotationButtons();"
+		keep="true"/>
+	<action name="theme2HideAutorotationButtons">
+		set(layer[theme2btn_autorotate_off].visible, false);
+		set(layer[theme2btn_autorotate_on].visible , false);
+	</action>
+	<action name="theme2ShowAutorotationButtons">
+		if(tour_autorotateenabled==false,
+			set(layer[theme2btn_autorotate_off].visible, false);
+			set(layer[theme2btn_autorotate_on].visible , true);
+		,
+			set(layer[theme2btn_autorotate_off].visible, true);
+			set(layer[theme2btn_autorotate_on].visible , false);
+		);
+	</action>
+	<action name="theme2updateAutorotationButtons">
+		set(theme2DisplayAutorotationButtons, false);
+		if (theme2IsOpened, set(theme2DisplayAutorotationButtons, true););
+		if (theme2DisplayAutorotationButtons,
+			theme2ShowAutorotationButtons();
+		,
+			theme2HideAutorotationButtons();
+		);
+	</action>
+
+
+	<events name="theme2playstopsoundsevent" 
+		playtoursoundsevent="theme2updateSoundButtons();" 
+		stoptoursoundsevent="theme2updateSoundButtons();" 
+		keep="true" />
+	<action name="theme2HideSoundButtons">
+		set(layer[theme2btn_sound_off].visible, false);
+		set(layer[theme2btn_sound_on].visible , false);
+	</action>
+	<action name="theme2ShowSoundButtons">
+		if (tour_soundson == false,
+			set(layer[theme2btn_sound_off].visible, false);
+			set(layer[theme2btn_sound_on].visible , true);
+		,
+			set(layer[theme2btn_sound_off].visible, true);
+			set(layer[theme2btn_sound_on].visible , false);
+		);
+	</action>
+	<action name="theme2updateSoundButtons">
+		set(theme2DisplaySoundButtons, false);
+		if (theme2IsOpened, set(theme2DisplaySoundButtons, true););
+		if (theme2DisplaySoundButtons,
+			theme2ShowSoundButtons();
+		,
+			theme2HideSoundButtons();
+		);
+	</action>
+
+
+
+
+  <textstyle name="theme2menuTooltipStyle"
+             font="Helvetica"
+             fontsize="16"
+             bold="true"
+             italic="false"
+             background="false"
+             border="false"
+             alpha="0.8"
+             blendmode="layer"
+             textcolor="0xe6e6e6"
+             effect="glow(0x111111,0.8);"
+             origin="bottom"
+             yoffset="60"
+             edge="center"
+             xoffset="0"
+             textalign="center"
+             noclip="true"
+             devices="flash"
+             />
+	<layer name="theme2menuTooltipStyle"
+		keep="true"
+		enabled="false"
+		capture="false"
+		url="%FIRSTXML%/graphics/textfield.swf"
+		align="center"
+		background="true"
+		backgroundcolor="0xdedede"
+		backgroundalpha="0.8"
+		border="false"
+		bordercolor="0xffffff"
+		css="color:#e6e6e6;font-family:Helvetica;font-weight:bold;font-size:16px;text-align:center;"
+		width="200"
+		height="20"
+		autoheight="true"
+			edge="bottom"
+		textshadow="1.0"
+		selectable="false"
+		zorder="0"
+		html=""
+		visible="false"
+		devices="html5"
+		/>
+
+  <!-- Sounds Management -->
+  <plugin name="soundinterface"
+          preload="true"
+          url="%SWFPATH%/graphics/soundinterface.swf"
+          alturl="%FIRSTXML%/graphics/soundinterface.js"
+          rootpath="%FIRSTXML%/sounds"
+          backgroundsound=""
+          backgroundsoundloops="0"
+          bgsound="false"
+          volumeinitialized="false"
+          keep="true"/>
+  <events name="soundmanagementevents"
+          onnewpano="playbackgroundsound();"
+          onxmlcomplete="soundinterfaceonxmlcomplete();"
+          keep="true"/>
+  <action name="soundinterfaceonxmlcomplete">
+    ifnot(plugin[soundinterface].volumeinitialized,
+      div(plugin[soundinterface].volume, tour_soundsvolume, 100);
+      set(plugin[soundinterface].volumeinitialized,true);
+    );
+  </action>
+  <action name="playsound3Dwhenpossible">
+    set(really_play_sound, true);
+    if (tour_current_played_sound,
+      if (%1 == tour_current_played_sound,
+        stopsound(%1);
+        delete(tour_current_played_sound);
+        set(really_play_sound, false);
+      );
+    );
+    if (really_play_sound,
+      if (tour_current_played_sound,
+        stopsound(get(tour_current_played_sound));
+      );
+      if (%3,
+        if (device.flash,
+          playsound3D(%1,%2,%4,%5);
+        ,
+          playsound(%1,%2);
+        );
+      , 
+        playsound(%1,%2);
+      );
+      set(tour_current_played_sound, %1);
+    );
+  </action>
+  <action name="playbackgroundsound">
+    if (xml.scene,
+      if (scene[get(xml.scene)].backgroundsound,
+        if (plugin[soundinterface].backgroundsound != scene[get(xml.scene)].backgroundsound,
+          copy(plugin[soundinterface].backgroundsound     , scene[get(xml.scene)].backgroundsound);
+          copy(plugin[soundinterface].backgroundsoundloops, scene[get(xml.scene)].backgroundsoundloops);
+          if (tour_soundson == true,
+            playsound(bgsoundname, get(plugin[soundinterface].backgroundsound), get(plugin[soundinterface].backgroundsoundloops));
+            set(plugin[soundinterface].bgsound, true);
+           ,
+            set(plugin[soundinterface].bgsound, false);
+          );
+        );
+      );
+    );
+  </action>
+  <action name="resetbackgroundsoundifneeded">
+    if (xml.scene,
+      if (scene[get(xml.scene)].backgroundsound != scene[%1].backgroundsound,
+        if (plugin[soundinterface].backgroundsound,
+          if (plugin[soundinterface].bgsound,
+            stopsound(bgsoundname);
+          );
+        );
+        set(plugin[soundinterface].backgroundsound     , "");
+        set(plugin[soundinterface].backgroundsoundloops, 0);
+        set(plugin[soundinterface].bgsound             , false);
+      );
+    );
+  </action>
+  <action name="pausebackgroundsound">
+    if (plugin[soundinterface].backgroundsound,
+      if (plugin[soundinterface].bgsound,
+        pausesound(bgsoundname);
+      );
+    );
+  </action>
+  <action name="resumebackgroundsound">
+    if (tour_soundson == true,
+      if (plugin[soundinterface].backgroundsound,
+        if (plugin[soundinterface].bgsound,
+          resumesound(bgsoundname);
+         ,
+          playsound(bgsoundname, get(plugin[soundinterface].backgroundsound), get(plugin[soundinterface].backgroundsoundloops));
+          set(plugin[soundinterface].bgsound, true);
+        );
+      );
+    );
+  </action>
+  <action name="preloadSounds">
+    preloadsound("k01_classy-joint_nomelody.mp3");
+  </action>
+  <action name="play3DLocalSounds">
+    if (xml.scene, if (scene[get(xml.scene)].haslocalsounds, playpanolocalsounds();););
+  </action>
+  <action name="stop3DLocalSounds">
+    if (xml.scene, if (scene[get(xml.scene)].haslocalsounds, stoppanolocalsounds();););
+  </action>
+  <action name="set3DLocalSoundsVolume">
+    if (xml.scene, if (scene[get(xml.scene)].haslocalsounds, setpanolocalsoundsvolume();););
+  </action>
+  <action name="playTourSounds">
+    set(tour_soundson, true);events.dispatch(playtoursoundsevent);
+    play3DLocalSounds();
+    resumebackgroundsound();
+  </action>
+  <action name="stopTourSounds">
+    set(tour_soundson, false);events.dispatch(stoptoursoundsevent);
+    stop3DLocalSounds();
+    if (tour_current_played_sound,
+      stopsound(get(tour_current_played_sound));
+      delete(tour_current_played_sound);
+    );
+    pausebackgroundsound();
+  </action>
+  <action name="setTourSoundsVolume">
+    set(tour_soundsvolume, %1);
+    div(volume, tour_soundsvolume, 100);
+    set(plugin[soundinterface].volume, get(volume));
+    set3DLocalSoundsVolume();
+  </action>
+  <!-- Fullscreen Management -->
+  <action name="exitFullScreen" devices="fullscreensupport">set(tour_fullscreen,false);set(fullscreen,false);</action>
+  <action name="enterFullScreen" devices="fullscreensupport">set(tour_fullscreen,true);set(fullscreen,true);</action>
+  <action name="switchFullScreen">if(tour_fullscreen,exitFullScreen();,enterFullScreen(););</action>
+
+  
+  <events name="krpanoExitFullscreenEvent"
+    onexitfullscreen="if(tour_fullscreen,exitFullScreenChangeEvent(););"
+    keep="true" />
+
+  <action name="exitFullScreenChangeEvent" devices="fullscreensupport">set(tour_fullscreen,false);events.dispatch(onexitfullscreen);</action>
+</krpano>

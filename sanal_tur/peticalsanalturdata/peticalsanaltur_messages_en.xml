@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano>
+
+<!-- ************************ -->
+<!--         Messages         -->
+<!-- ************************ -->
+
+  <data name="en_project_title"><![CDATA[Petical]]></data>
+
+
+
+  <data name="en_pano11_title"><![CDATA[Lobby]]></data>
+  <data name="en_spotpoint22_tooltip"><![CDATA[Mağaza]]></data>
+  <data name="en_spotpoint50_tooltip"><![CDATA[Labaratuvar]]></data>
+  <data name="en_spotpoint51_tooltip"><![CDATA[Banyo]]></data>
+
+
+  <data name="en_pano9_title"><![CDATA[Mağaza]]></data>
+  <data name="en_spotpoint23_tooltip"><![CDATA[Lobby]]></data>
+
+
+  <data name="en_pano13_title"><![CDATA[Muayene Odaları]]></data>
+  <data name="en_spotpoint24_tooltip"><![CDATA[Aşı Odası]]></data>
+  <data name="en_spotpoint25_tooltip"><![CDATA[Röntgen / U]]></data>
+  <data name="en_spotpoint26_tooltip"><![CDATA[Muayene Odası]]></data>
+
+
+  <data name="en_pano15_title"><![CDATA[Aşı Odası]]></data>
+
+
+  <data name="en_pano17_title"><![CDATA[Röntgen / Ultrasonografi]]></data>
+
+
+  <data name="en_pano19_title"><![CDATA[Muayene Odası]]></data>
+
+
+  <data name="en_pano40_title"><![CDATA[Banyo]]></data>
+
+
+  <data name="en_pano46_title"><![CDATA[Labaratuvar]]></data>
+  <data name="en_spotpoint52_tooltip"><![CDATA[Yoğun Bakım]]></data>
+  <data name="en_spotpoint56_tooltip"><![CDATA[Ameliyathane]]></data>
+  <data name="en_spotpoint60_tooltip"><![CDATA[Lobby]]></data>
+
+
+  <data name="en_pano42_title"><![CDATA[Ameliyathane]]></data>
+
+
+  <data name="en_pano44_title"><![CDATA[Yoğun Bakım]]></data>
+
+
+  <data name="en_pano48_title"><![CDATA[Toplantı Odası]]></data>
+
+
+
+
+
+
+  <data name="en_logowebsiteurl"><![CDATA[]]></data>
+  <data name="en_logotooltipText"><![CDATA[Open website]]></data>
+  <data name="en_controlBar_classicprevSceneTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classicnextSceneTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classiczoomInTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classiczoomOutTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classicmoveLeftTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classicmoveRightTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classicmoveUpTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classicmoveDownTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classicopenFsTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classiccloseFsTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classicautorotateOnTip"><![CDATA[Start autorotation]]></data>
+  <data name="en_controlBar_classicautorotateOffTip"><![CDATA[Stop autorotation]]></data>
+  <data name="en_controlBar_classicsoundsOnTip"><![CDATA[]]></data>
+  <data name="en_controlBar_classicsoundsOffTip"><![CDATA[]]></data>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</krpano>

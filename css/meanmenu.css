@@ -1,0 +1,195 @@
+
+/*! #######################################################################
+
+	MeanMenu 2.0.7
+	--------
+
+	To be used with jquery.meanmenu.js by Chris Wharton (http://www.meanthemes.com/plugins/meanmenu/)
+
+####################################################################### */
+
+/* hide the link until viewport size is reached */
+a.meanmenu-reveal {
+	display: none;
+}
+
+/* when under viewport size, .mean-container is added to body */
+.mean-container .mean-bar {
+	background: #ff8787 none repeat scroll 0 0;
+	float: left;
+	margin-bottom: 20px;
+	min-height: 55px;
+	position: relative;
+	width: 100%;
+	z-index: 999999;
+}
+
+.mean-container a.meanmenu-reveal {
+	color: #ffffff;
+	cursor: pointer;
+	display: block;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 1px;
+	font-weight: 700;
+	height: 22px;
+	line-height: 22px;
+	padding: 17px;
+	position: absolute;
+	right: 0;
+	text-decoration: none;
+	text-indent: -9999em;
+	top: 0;
+	width: 22px;
+}
+
+.mean-container a.meanmenu-reveal span {
+	display: block;
+	background: #fff;
+	height: 3px;
+	margin-top: 3px;
+}
+
+.mean-container .mean-nav {
+	background: #ffffff none repeat scroll 0 0;
+	float: left;
+	margin-top: 55px;
+	width: 100%;
+}
+
+.mean-container .mean-nav ul {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	list-style-type: none;
+}
+
+.mean-container .mean-nav ul li {
+	position: relative;
+	float: left;
+	width: 100%;
+	border-top: 1px solid #DDDDDD;
+}
+.mean-container .mean-nav ul li:first-child {
+	border-top: 0px solid #DDDDDD;
+}
+
+.mean-container .mean-nav ul li a {
+	display: block;
+	float: left;
+	width: 90%;
+	padding: 1em 5%;
+	margin: 0;
+	text-align: left;
+	color: #333;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight:bold;
+	font-size:14px;
+}
+.mean-container .mean-nav ul li a:hover {
+	color:#ff8787;
+}
+
+.mean-container .mean-nav ul li li {
+	border-top: 1px solid #DDDDDD;
+}
+.mean-container .mean-nav ul li li:first-child {
+	border-top: 1px solid #DDDDDD;
+}
+.mean-container .mean-nav ul li li a {
+	width: 80%;
+	padding: 1em 10%;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	text-shadow: none !important;
+	visibility: visible;
+	font-size:13px;
+}
+
+.mean-container .mean-nav ul li.mean-last a {
+	border-bottom: none;
+	margin-bottom: 0;
+}
+
+.mean-container .mean-nav ul li li li a {
+	width: 70%;
+	padding: 1em 15%;
+}
+
+.mean-container .mean-nav ul li li li li a {
+	width: 60%;
+	padding: 1em 20%;
+}
+
+.mean-container .mean-nav ul li li li li li a {
+	width: 50%;
+	padding: 1em 25%;
+}
+
+.mean-container .mean-nav ul li a.mean-expand {
+  -moz-border-bottom-colors: none !important;
+  -moz-border-left-colors: none !important;
+  -moz-border-right-colors: none !important;
+  -moz-border-top-colors: none !important;
+  background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
+  border-color: -moz-use-text-color -moz-use-text-color rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.4) !important;
+  border-image: none !important;
+  border-style: none none solid solid !important;
+  border-width: medium medium 1px 1px !important;
+  font-weight: 800;
+  height: 23px;
+  line-height: 24px;
+  margin-top: 0px;
+  padding: 12px !important;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 25px;
+  z-index: 2;
+}
+
+.mean-container .mean-nav ul li a.mean-expand:hover {
+	background: #ff8787;
+	color:#fff;
+}
+
+.mean-container .mean-push {
+	float: left;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	clear: both;
+}
+
+.mean-nav .wrapper {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+/* Fix for box sizing on Foundation Framework etc. */
+.mean-container .mean-bar, .mean-container .mean-bar * {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+
+.mean-remove {
+	display: none !important;
+}
+
+.mean-container .mean-bar {
+    position: relative;
+}
+.mean-bar::before {
+  color: #ffffff;
+  content: "MENU";
+  font-size: 17px;
+  font-weight: bold;
+  left: 21px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 17px;
+}

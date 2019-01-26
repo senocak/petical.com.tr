@@ -1,0 +1,16 @@
+RewriteEngine On
+
+RewriteRule ^index.html$ index.php [NC,L] 
+RewriteRule ^dosyalar$ admin [NC,L] 
+
+
+RewriteRule ^index/$ index/anasayfa [NC,L]
+
+ 
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+RewriteRule ^(.+)$ index.php?sayfa=$1 [QSA,L]
+
